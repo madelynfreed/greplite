@@ -1,8 +1,4 @@
 import os
-from sys import argv
-print argv
-script, regex = argv
-
 # regex = raw_input("")
 
 class Recurse(object):

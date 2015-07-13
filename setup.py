@@ -11,7 +11,7 @@ config = {
 	'author_email': 'madelyn.freed@gmail.com',
 	'version': '0.1',
 	'install_requires': ['nose'],
-	'packages': ['project'],
+	'packages': ['rebuildgrep'],
 	'scripts': [],
 	'name': 'rebuildgrep'
 }
