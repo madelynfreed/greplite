@@ -3,8 +3,13 @@ from sys import argv
 
 script, regex = argv
 
+# regex = raw_input("")
+
 def is_log_file(filename):
-	return True
+	if "." in filename:
+		return True
+	else:
+		return False
 
 def includes_string(pathname, regex):
 	reading_file = open(pathname, 'r')
@@ -19,7 +24,7 @@ for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
 	full_path_names = [os.path.join(dirpath,name) for name in filenames if is_log_file(name)]
 	f.extend(full_path_names)
 
-# print f
+print f
 
 matched_files = [pathname for pathname in f if includes_string(pathname, regex)]
 
