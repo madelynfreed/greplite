@@ -6,7 +6,8 @@ class Recurse(object):
 		self.regex = regex
 
 	def is_log_file(self, filename):
-		if "." in filename:
+		#if the filename contains anything in the /.logfind file, return True
+		if "log" in filename:
 			return True
 		else:
 			return False
