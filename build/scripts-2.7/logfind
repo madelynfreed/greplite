@@ -1,0 +1,21 @@
+#!/usr/local/opt/python/bin/python2.7
+import sys
+import os
+print sys.executable + "executable"
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# print sys.path[0]
+# import rebuildgrep
+# print rebuildgrep.__file__
+# from rebuildgrep import walk
+# print walk.__file__
+from rebuildgrep.walk import Recurse
+
+from sys import argv
+print argv
+script, regex = argv
+
+
+test = Recurse(regex)
+f = test.find_matching_filenames()
+matched = test.find_matched_files(f)
+print matched
