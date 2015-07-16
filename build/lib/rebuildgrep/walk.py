@@ -1,4 +1,5 @@
 import os
+import sys
 # regex = raw_input("")
 
 class Recurse(object):
@@ -15,10 +16,20 @@ class Recurse(object):
 	def includes_string(self, pathname, regex):
 		reading_file = open(pathname, 'r')
 
-		if regex in reading_file.read():
+		if '/Users/madelynfreed/Library/Containers/com.apple.soagent/Data/Library/Preferences/' in pathname:
+			return False
+		elif regex in reading_file.read():
 			return True
 		else:
 			return False
+		# except:
+		# 	print "!!!!!"
+		# 	print pathname
+		# 	return False
+		# else:
+		# 	return False
+
+			
 
 	def find_matching_filenames(self):
 		f = []
