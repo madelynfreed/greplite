@@ -1,4 +1,5 @@
 import os
+import sys
 # regex = raw_input("")
 
 class Recurse(object):
@@ -7,19 +8,30 @@ class Recurse(object):
 
 	def is_log_file(self, filename):
 		#if the filename contains anything in the /.logfind file, return True
-		# if "log" in filename:
-		# 	return True
-		# else:
-		# 	return False
-		return True
+		return "log" in filename
 
 	def includes_string(self, pathname, regex):
-		reading_file = open(pathname, 'r')
+		#get this out of here, or just pass the open file into this method so it's easier to 
+		#unit test, and that it isn't answering two questions at once2
+		try:
+			reading_file = open(pathname, 'r')
+		except IOError:
+			return False
 
-		if regex in reading_file.read():
+		if '/Users/madelynfreed/Library/Containers/com.apple.soagent/Data/Library/Preferences/' in pathname:
+			return False
+		elif regex in reading_file.read():
 			return True
 		else:
 			return False
+		# except:
+		# 	print "!!!!!"
+		# 	print pathname
+		# 	return False
+		# else:
+		# 	return False
+
+			
 
 	def find_matching_filenames(self):
 		f = []
