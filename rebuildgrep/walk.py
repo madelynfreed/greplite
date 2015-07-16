@@ -7,10 +7,11 @@ class Recurse(object):
 
 	def is_log_file(self, filename):
 		#if the filename contains anything in the /.logfind file, return True
-		if "log" in filename:
-			return True
-		else:
-			return False
+		# if "log" in filename:
+		# 	return True
+		# else:
+		# 	return False
+		return True
 
 	def includes_string(self, pathname, regex):
 		reading_file = open(pathname, 'r')
