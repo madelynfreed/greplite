@@ -8,11 +8,12 @@ class Recurse(object):
 
 	def is_log_file(self, filename):
 		#if the filename contains anything in the /.logfind file, return True
-		return "log" in filename
+		if "log" in filename:
+			return True
+		else:
+			return False
 
 	def includes_string(self, pathname, regex):
-		#get this out of here, or just pass the open file into this method so it's easier to 
-		#unit test, and that it isn't answering two questions at once2
 		try:
 			reading_file = open(pathname, 'r')
 		except IOError:
