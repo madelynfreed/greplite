@@ -1,8 +1,8 @@
 Here's what I have to do OK?
 
-* create bin so it can be installed through $PATH
-* how to search through all files, all text on the computer?
-* how to parse through to find just the string entered
+* be able to create a /.logfind file that is referenced as the type of files to look through
+* be able to look through a type of file by regex 
+* figure out how to look for a ~/.logfind file upon installation. put it in the path of the setup? of the bin file?
 * represent those entries in a pretty way
 *README
 * get up onto github

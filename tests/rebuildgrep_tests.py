@@ -17,11 +17,15 @@ def test_includes_string():
 
 def test_is_log_file():
 	x = walk.Recurse('_')
-	assert(x.is_log_file("bloggy.py"))
+	assert(x.is_log_file("gorp.log"))
 
 def test_is_not_log_file():
 	x = walk.Recurse('_')
 	assert_false(x.is_log_file("blgy.py"))
+
+def test_is_close_but_not_log_file():
+	x = walk.Recurse('_')
+	assert_false(x.is_log_file("blog.lo"))
 
 def test_find_matching_filenames():
 	pass

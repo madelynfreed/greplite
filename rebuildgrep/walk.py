@@ -1,14 +1,24 @@
 import os
 import sys
+import re
 # regex = raw_input("")
 
 class Recurse(object):
 	def __init__(self, regex):
 		self.regex = regex
 
+	#open the .logfind file if it exists
+	try:
+		log_formatting = open('~/.logfind', 'r')
+
+	except:
+
+
 	def is_log_file(self, filename):
-		#if the filename contains anything in the /.logfind file, return True
-		return "log" in filename
+		#if the filename contains anything in the /.logfind file, 
+		#return True
+		p = re.compile('\.log')
+		return p.search(filename)
 
 	def includes_string(self, pathname, regex):
 		#get this out of here, or just pass the open file into this method so it's easier to 

@@ -1,0 +1,46 @@
+
+
+The first project that we’ll try is called logfind. It’s nothing more than a simple version of grep so you can learn a few simple basic things in Python:a
+
+    Opening files based on regular expressions in a file.
+    Scanning those files for strings from command line arguments.
+    Create a complete installable Python project.
+
+The purpose of logfind is to make it easier for someone on a computer to quickly scan all their log files without having to explicitly declare every file on the command line. Your job is to create a python project according to the LPTHW Project Skeleton that implements the logfind description and that someone else can install. Your score on this project will be based on how far you get in a week’s time, so I’ll tell you how to stage it so you have something working at all times.
+The Description
+
+The logfind tool is designed to let me find all the log files that have at least one instance of some text by just typing this:
+
+$ logfind zedshaw
+
+The results of this will be a list of all files that have one instance of the word ‘zedshaw’ in them, which I can then pass to another tool if I want.
+The user level features I want for logfind are:
+
+    I specify what files are important in a ~/.logfind file, using regular expressions.
+    Logfind takes any number of arguments as strings to find in those files, and assumes I mean and. So looking for “zed has blue eyes” means files that have “zed AND has AND blue AND eyes” in it.
+    I can pass in one argument, -o (dash oh) and the default is then or logic instead. In the example above -o would change it to mean “zed OR has OR blue OR eyes”.
+    I want to be able to install logfind on my computer and run it like other projects. However, don’t push this to PyPI as that’ll really annoy people.
+    Extra bonus points if you can let me specify regular expressions as things to find in files.
+    Finally, speed counts, so whoever can make the fastest logfind will win the prize. The prize is nothing, but you know you want it.
+
+There are a few developer level features you should attempt:
+
+    Make sure you include automated tests. In fact you may want to create skeleton tests that have each of the above features and then work toward those. A good “automated test” to start with is a simple test_logfind.sh file that just runs your local bin/logfind with different parameters. After that make Python automated tests as described in LPTHW Automated Testing.
+    Using argparse for the options, which is honestly overkill at this point but is a good additional exercise.
+    Writing a README.md file.
+    Posting it to GitHub and using git from the beginning.
+
+Scaling Up Slowly
+
+That is a lot of work for someone who’s just an early coder and not very experienced. How can you possibly tackle this and get it all right?! By scaling your project up slowly a piece of a time rather than do the whole thing in one slog. Here’s how you do that:
+
+    Turn the challenge into a TODO list then refine this list with more tasks you think you’ll need to do to complete it.
+    Take the list, and start with the simplest thing you currently know how to do. I’d say that’s creating a project skeleton.
+    Once you have this first simple thing, what else can you do that depended on it or that is now open to you. Once you have a project skeleton it’s time to run git init . to get your git running. Once you have git running you can go learn about git. Once you learn about git you can go put it on github.com. There, you just knocked out three more tasks.
+    Refine your TODO list further after you complete each task. Do you really need all those features? Take them off your list for now. Is there something you realize needs to be done now? Add it to the list.
+    You then simply continue this process until you’ve either run out of time or have it working.
+
+Clues To Come
+
+This is the first challenge, and to give you a chance at tackling the problem with no help, I will stop for now. In the middle of the week I’ll post another post where I lay out a list of possible steps and clues for solving it, but not a solution. Then next week on Monday I’ll post a video where I demonstrate my solution and a github project for you to get and compare with mine.
+Post a comment if you have questions, but keep in mind I’m trying to be annoying and make you solve this on your own first. I may ignore your comment until it’s clue time. You can also ask me at @lzsthw on Twitter.
