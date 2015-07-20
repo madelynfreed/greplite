@@ -1,7 +1,6 @@
-#set up tests that set up a file structure with some negative examples
-
 from nose.tools import *
 from rebuildgrep import walk
+import os
 
 def setup():
 	print "setup"	
@@ -27,6 +26,17 @@ def test_is_close_but_not_log_file():
 	x = walk.Recurse('_')
 	assert_false(x.is_log_file("blog.lo"))
 
+def test_logfind_file_does_not_exist():
+	x = walk.Recurse('_')
+	assert_false(x.take_file_return_list("~/file_that_doesnt_exist")) 
+
+def test_logfind_file_exists_empty():
+
+	path = os.path.join(os.path.expanduser('~'), 'file_that_exists')
+	open(path, 'w').close()
+	x = walk.Recurse('_')
+	assert(x.take_file_return_list(path) == [])
+	os.remove(path)
 def test_find_matching_filenames():
 	pass
 

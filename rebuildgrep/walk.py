@@ -8,11 +8,19 @@ class Recurse(object):
 		self.regex = regex
 
 	#open the .logfind file if it exists
-	try:
-		log_formatting = open('~/.logfind', 'r')
-
-	except:
-
+	def take_file_return_list(self, fullpath):
+		try:
+			
+			fileobject = open(fullpath, 'r')
+			print fullpath
+			list_of_regexes = fileobject.read().splitlines()
+			list_of_regexes = [string.strip() in list_of_regexes]
+			#figure out how to merge these two
+			list_of_regexes = filter(None, list_of_regexes) 	
+		except:
+			list_of_regexes = []
+		
+		return list_of_regexes
 
 	def is_log_file(self, filename):
 		#if the filename contains anything in the /.logfind file, 
@@ -22,7 +30,7 @@ class Recurse(object):
 
 	def includes_string(self, pathname, regex):
 		#get this out of here, or just pass the open file into this method so it's easier to 
-		#unit test, and that it isn't answering two questions at once2
+		#unit test, and that it isn't answering two questions at once
 		try:
 			reading_file = open(pathname, 'r')
 		except IOError:
