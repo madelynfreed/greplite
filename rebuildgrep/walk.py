@@ -12,11 +12,11 @@ class Recurse(object):
 		try:
 			
 			fileobject = open(fullpath, 'r')
-			print fullpath
 			list_of_regexes = fileobject.read().splitlines()
 			list_of_regexes = [string.strip() in list_of_regexes]
 			#figure out how to merge these two
 			list_of_regexes = filter(None, list_of_regexes) 	
+			fileobject.close()
 		except:
 			list_of_regexes = []
 		

@@ -37,6 +37,19 @@ def test_logfind_file_exists_empty():
 	x = walk.Recurse('_')
 	assert(x.take_file_return_list(path) == [])
 	os.remove(path)
+
+def test_logfind_file_exists_with_regexes():
+	file_extensions = ['\.log','\.txt','\.py']	
+	path = os.path.join(os.path.expanduser('~'), '.logfind')
+	f = open(path, 'r+')
+	for string in file_extensions:
+		print string
+		f.write(string + '\n')
+	print f.readlines()
+	x = walk.Recurse('_')
+	assert_false(x.take_file_return_list(path) == [])
+	os.remove(path)
+
 def test_find_matching_filenames():
 	pass
 
