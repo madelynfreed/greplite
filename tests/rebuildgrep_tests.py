@@ -4,6 +4,17 @@ import os
 
 class TestClass():
 
+	def setup(self):
+		file_extensions = ['\.log','\.txt','\.py']	
+		self.path = os.path.join(os.path.expanduser('~'), '.hooligans')
+		self.f = open(self.path, 'w+')
+		for string in file_extensions:
+			self.f.write(string + '\n')
+		self.f.close()
+	def teardown(self):
+		
+		os.remove(self.path)
+
 	def test_is_log_file(self):
 		x = walk.Recurse('_')
 		assert(x.is_log_file("gorp.log"))
@@ -26,15 +37,8 @@ class TestClass():
 		os.remove(path)
 
 	def test_logfind_file_exists_with_regexes(self):
-		file_extensions = ['log','txt','py']	
-		path = os.path.join(os.path.expanduser('~'), '.hooligans')
-		f = open(path, 'w+')
-		for string in file_extensions:
-			f.write(string + '\n')
 		x = walk.Recurse('_')
-		f.close()
-		f = open(path, 'r')
-		assert_false(x.take_file_return_list(f) == [])
-		f.close()
-		#os.remove(path)
+		self.f = open(self.path, 'r')
+		assert_false(x.take_file_return_list(self.f) == [])
+		self.f.close()
 
