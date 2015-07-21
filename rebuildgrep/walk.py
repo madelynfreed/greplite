@@ -8,17 +8,12 @@ class Recurse(object):
 		self.regex = regex
 
 	#open the .logfind file if it exists
-	def take_file_return_list(self, fullpath):
-		try:
+	def take_file_return_list(self, open_file):
 			
-			fileobject = open(fullpath, 'r')
-			list_of_regexes = fileobject.read().splitlines()
-			list_of_regexes = [string.strip() in list_of_regexes]
-			#figure out how to merge these two
-			list_of_regexes = filter(None, list_of_regexes) 	
-			fileobject.close()
-		except:
-			list_of_regexes = []
+		list_of_regexes = open_file.read().splitlines()
+		list_of_regexes = [string.strip() for string in list_of_regexes]
+		#figure out how to merge these two
+		list_of_regexes = filter(None, list_of_regexes) 	
 		
 		return list_of_regexes
 
