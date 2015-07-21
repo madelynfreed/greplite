@@ -26,14 +26,15 @@ class TestClass():
 		os.remove(path)
 
 	def test_logfind_file_exists_with_regexes(self):
-		file_extensions = ['\.log','\.txt','\.py']	
-		path = os.path.join(os.path.expanduser('~'), '.logfind')
-		f = open(path, 'r+')
+		file_extensions = ['log','txt','py']	
+		path = os.path.join(os.path.expanduser('~'), '.hooligans')
+		f = open(path, 'w+')
 		for string in file_extensions:
-			print string
 			f.write(string + '\n')
-		print f.readlines()
 		x = walk.Recurse('_')
-		assert_false(x.take_file_return_list(path) == [])
-		os.remove(path)
+		f.close()
+		f = open(path, 'r')
+		assert_false(x.take_file_return_list(f) == [])
+		f.close()
+		#os.remove(path)
 

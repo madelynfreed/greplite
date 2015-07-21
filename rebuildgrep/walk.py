@@ -10,8 +10,10 @@ class Recurse(object):
 	#open the .logfind file if it exists
 	def take_file_return_list(self, open_file):
 			
-		list_of_regexes = open_file.read().splitlines()
+		list_of_regexes = open_file.readlines()
+		print list_of_regexes
 		list_of_regexes = [string.strip() for string in list_of_regexes]
+
 		#figure out how to merge these two
 		list_of_regexes = filter(None, list_of_regexes) 	
 		
@@ -31,20 +33,12 @@ class Recurse(object):
 		except IOError:
 			return False
 
-		if '/Users/madelynfreed/Library/Containers/com.apple.soagent/Data/Library/Preferences/' in pathname:
+		if '''/Users/madelynfreed/Library/Containers/com.apple.soagent/Data/Library/Preferences/''' in pathname:
 			return False
 		elif regex in reading_file.read():
 			return True
 		else:
 			return False
-		# except:
-		# 	print "!!!!!"
-		# 	print pathname
-		# 	return False
-		# else:
-		# 	return False
-
-			
 
 	def find_matching_filenames(self):
 		f = []
@@ -54,12 +48,8 @@ class Recurse(object):
 			f.extend(full_path_names)
 
 		return f
+
 	def find_matched_files(self, matching_file_names):
 		matched_files = [pathname for pathname in matching_file_names if self.includes_string(pathname, self.regex)]
 
 		return matched_files
-
-# test = Recurse()
-# f = test.find_matching_filenames()
-# matched = test.find_matched_files(f)
-# print matched
