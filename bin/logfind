@@ -4,10 +4,10 @@ from rebuildgrep.walk import Recurse
 
 from sys import argv
 print argv
-script, regex = argv
+script, [searchterm] = argv
 
 
-test = Recurse(regex)
+test = Recurse([searchterm])
 f = test.find_matching_filenames()
 matched = test.find_matched_files(f)
 print matched

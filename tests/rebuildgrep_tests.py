@@ -6,7 +6,7 @@ class TestClass():
 
 	def setup(self):
 		file_extensions = ['\.log','\.txt','\.py']	
-		self.path = os.path.join(os.path.expanduser('~'), '.hooligans')
+		self.path = os.path.join(os.path.expanduser('~'), '.logfind')
 		self.f = open(self.path, 'w+')
 		for string in file_extensions:
 			self.f.write(string + '\n')
@@ -24,17 +24,17 @@ class TestClass():
 		os.remove(self.path)
 		os.remove(self.text_file_path)
 
-	def test_is_log_file(self):
+	def test_filename_matches_regexes_in_logfind(self):
 		x = walk.Recurse('_')
-		assert(x.is_log_file("gorp.log"))
+		assert(x.filename_matches_regexes_in_logfind("gorp.log"))
 		
-	def test_is_not_log_file(self):
+	def test_does_not_match_regex_in_logfind(self):
 		x = walk.Recurse('_')
-		assert_false(x.is_log_file("blgy.py"))
+		assert_false(x.filename_matches_regexes_in_logfind("blgy.p"))
 
-	def test_is_close_but_not_log_file(self):
+	def test_is_close_but_does_not_match_regex_in_logfind(self):
 		x = walk.Recurse('_')
-		assert_false(x.is_log_file("blog.lo"))
+		assert_false(x.filename_matches_regexes_in_logfind("blog.lo"))
 
 	def test_logfind_file_exists_empty(self):
 

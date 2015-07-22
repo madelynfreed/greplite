@@ -1,13 +1,12 @@
 import os
 import sys
 import re
-
 class Recurse(object):
 	def __init__(self, regex):
 		self.regex = regex
+		self.logfindfile = os.path.join(os.path.expanduser('~'), '.logfind')
 
 	def take_file_return_list(self, open_file):
-			
 		list_of_regexes = open_file.readlines()
 		list_of_regexes = [string.strip() for string in list_of_regexes]
 		#figure out how to merge these two
@@ -15,9 +14,13 @@ class Recurse(object):
 		
 		return list_of_regexes
 
-	def is_log_file(self, filename):
-		p = re.compile('\.log')
-		return p.search(filename)
+	def filename_matches_regexes_in_logfind(self, filename):
+		file_types = self.take_file_return_list(self.open_existing_file_or_die(self.logfindfile))
+		#compile each of the elements in file_types
+		#if each.search(filename) , return true
+		compiled_regexes = [re.compile(type) for type in file_types]	
+		bools_of_search = [compiled_regex.search(filename) for compiled_regex in compiled_regexes]
+		return any(bools_of_search)
 
 	def includes_string(self, open_file, regex):
 		if regex in open_file.read():
@@ -29,7 +32,7 @@ class Recurse(object):
 		f = []
 
 		for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
-			full_path_names = [os.path.join(dirpath,name) for name in filenames if self.is_log_file(name)]
+			full_path_names = [os.path.join(dirpath,name) for name in filenames if self.filename_matches_regexes_in_logfind(name)]
 			f.extend(full_path_names)
 
 		return f
