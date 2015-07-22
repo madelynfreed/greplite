@@ -22,6 +22,7 @@ class TestClass():
 		self.textfile.close()
 	def teardown(self):
 		os.remove(self.path)
+		print self.text_file_path
 		os.remove(self.text_file_path)
 
 	def test_is_log_file(self):
