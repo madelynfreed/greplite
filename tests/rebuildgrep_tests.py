@@ -61,5 +61,5 @@ class TestClass():
 	def test_find_matched_files(self):
 		
 		x = walk.Recurse('Pitchfork')
-		file_name_array = [self.text_file_path]
+		file_name_array = [self.text_file_path, 'path/that/doesnt/exist']
 		assert(x.find_matched_files(file_name_array))

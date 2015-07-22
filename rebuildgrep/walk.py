@@ -39,10 +39,12 @@ class Recurse(object):
 		try:
 			return open(pathname, 'r')
 		except IOError:
-			return False
+			return None
 
 	def find_matched_files(self, matching_file_names):
 		list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
+		
+		list_of_open_files  = filter(None, list_of_open_files) 	
 		
 		matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.regex)]
 

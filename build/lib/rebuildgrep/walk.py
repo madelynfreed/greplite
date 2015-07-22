@@ -20,11 +20,6 @@ class Recurse(object):
 		return p.search(filename)
 
 	def includes_string(self, open_file, regex):
-		#get this out of here, or just pass the open file into this method so it's easier to 
-		#unit test, and that it isn't answering two questions at once
-
-		#if '''/Users/madelynfreed/Library/Containers/com.apple.soagent/Data/Library/Preferences/''' in open_file:
-			#return False
 		if regex in open_file.read():
 			return True
 		else:
@@ -44,9 +39,14 @@ class Recurse(object):
 		try:
 			return open(pathname, 'r')
 		except IOError:
-			return False
-
+			print 'sorry'
 	def find_matched_files(self, matching_file_names):
-		matched_files = [pathname for pathname in matching_file_names if self.includes_string(pathname, self.regex)]
+		list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
+		
+		print list_of_open_files
+		list_of_open_files  = filter(None, list_of_open_files) 	
+		
+		print list_of_open_files
+		matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.regex)]
 
 		return matched_files
