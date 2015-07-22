@@ -2,8 +2,8 @@ import os
 import sys
 import re
 class Recurse(object):
-	def __init__(self, regex):
-		self.regex = regex
+	def __init__(self, searchstring):
+		self.searchstring = searchstring
 		self.logfindfile = os.path.join(os.path.expanduser('~'), '.logfind')
 
 	def take_file_return_list(self, open_file):
@@ -22,8 +22,8 @@ class Recurse(object):
 		bools_of_search = [compiled_regex.search(filename) for compiled_regex in compiled_regexes]
 		return any(bools_of_search)
 
-	def includes_string(self, open_file, regex):
-		if regex in open_file.read():
+	def includes_string(self, open_file, searchstring):
+		if searchstring in open_file.read():
 			return True
 		else:
 			return False
@@ -48,7 +48,9 @@ class Recurse(object):
 		list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
 		
 		list_of_open_files  = filter(None, list_of_open_files) 	
-		
-		matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.regex)]
-
+	#change this so that it can handle more than one search term	
+		matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
+		for open_file in matched_files:
+			open_file.close()
+		matched_files = [mf.name for mf in matched_files]
 		return matched_files
