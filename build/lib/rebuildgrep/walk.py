@@ -48,8 +48,9 @@ class Recurse(object):
 		list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
 		
 		list_of_open_files  = filter(None, list_of_open_files) 	
-		
+	#change this so that it can handle more than one search term	
 		matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
 		for open_file in matched_files:
 			open_file.close()
+		matched_files = [mf.name for mf in matched_files]
 		return matched_files
