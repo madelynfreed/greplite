@@ -11,7 +11,6 @@ class Recurse(object):
 	def take_file_return_list(self, open_file):
 			
 		list_of_regexes = open_file.readlines()
-		print list_of_regexes
 		list_of_regexes = [string.strip() for string in list_of_regexes]
 
 		#figure out how to merge these two
