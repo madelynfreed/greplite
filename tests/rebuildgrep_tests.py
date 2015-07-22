@@ -51,3 +51,15 @@ class TestClass():
 		self.f = open(self.path, 'r')
 		assert_false(x.take_file_return_list(self.f) == [])
 		self.f.close()
+	
+	def test_includes_string(self):
+		
+		x = walk.Recurse('_')
+		textfile = open(self.text_file_path, 'r')
+		#print [line for line in textfile]
+		assert(x.includes_string(textfile, 'Pitchfork'))
+	def test_find_matched_files(self):
+		
+		x = walk.Recurse('Pitchfork')
+		file_name_array = [self.text_file_path]
+		assert(x.find_matched_files(file_name_array))
