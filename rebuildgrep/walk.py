@@ -45,16 +45,31 @@ class Recurse(object):
 			return None
 
 	def find_matched_files(self, matching_file_names):
-		list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
-		
-		list_of_open_files  = filter(None, list_of_open_files) 	
-	#change this so that it can handle more than one search term	
-		all_the_tuples = [[pn, sst] for pn in list_of_open_files for sst in self.searchstring]
-		matched_tuple = [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
+		matched_files = set()
+		for strs in self.searchstring:
+			for files in matching_file_names:
+				x = self.open_existing_file_or_die(files)
+				if self.includes_string(x, strs):
+					matched_files.add(x.name)
+				x.close()
 
-		#matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
-		matched_files = [tuple[0] for tuple in matched_tuple]
-		for open_file in matched_files:
-			open_file.close()
-		matched_files = [mf.name for mf in matched_files]
-		return matched_files
+		#list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
+		#
+		#list_of_open_files  = filter(None, list_of_open_files) 	
+		#all_the_tuples = [[pn, sst] for pn in list_of_open_files for sst in self.searchstring]
+		#print all_the_tuples
+		#print [tuple for tuple in all_the_tuples]
+		#matched_tuple = [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
+		#print all_the_tuples[0][0], all_the_tuples[0][1]
+		#print all_the_tuples[0][0].tell()
+		#print "kkddkkddkk"
+		#print self.includes_string(all_the_tuples[0][0], all_the_tuples[0][1])
+		#print "XXOXXOO"
+		#print [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
+		#print matched_tuple
+		##matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
+		#matched_files = [tuple[0] for tuple in matched_tuple]
+		#for open_file in matched_files:
+			#open_file.close()
+		#matched_files = [mf.name for mf in matched_files]
+		return list(matched_files)

@@ -49,7 +49,11 @@ class Recurse(object):
 		
 		list_of_open_files  = filter(None, list_of_open_files) 	
 	#change this so that it can handle more than one search term	
-		matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
+		all_the_tuples = [[pn, sst] for pn in list_of_open_files for sst in self.searchstring]
+		matched_tuple = [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
+
+		#matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
+		matched_files = [tuple[0] for tuple in matched_tuple]
 		for open_file in matched_files:
 			open_file.close()
 		matched_files = [mf.name for mf in matched_files]
