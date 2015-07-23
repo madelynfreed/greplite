@@ -49,9 +49,10 @@ class Recurse(object):
 		for strs in self.searchstring:
 			for files in matching_file_names:
 				x = self.open_existing_file_or_die(files)
-				if self.includes_string(x, strs):
-					matched_files.add(x.name)
-				x.close()
+				if x:
+					if self.includes_string(x, strs):
+						matched_files.add(x.name)
+					x.close()
 
 		#list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
 		#
