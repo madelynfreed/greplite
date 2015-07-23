@@ -1,13 +1,13 @@
 #!python
 import sys
-from rebuildgrep.walk import Recurse
+from rebuildgrep.walk import Greplite
 
 from sys import argv
 print argv
 searchterms = argv[1:]
 
 
-test = Recurse(searchterms)
+test = Greplite(searchterms)
 f = test.find_matching_filenames()
 matched = test.find_matched_files_OR_SEARCH(f)
 print matched

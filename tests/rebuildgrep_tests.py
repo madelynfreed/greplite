@@ -25,15 +25,15 @@ class TestClass():
 		os.remove(self.text_file_path)
 
 	def test_filename_matches_regexes_in_logfind(self):
-		x = walk.Recurse('_')
+		x = walk.Greplite('_')
 		assert(x.filename_matches_regexes_in_logfind("gorp.log"))
 		
 	def test_does_not_match_regex_in_logfind(self):
-		x = walk.Recurse('_')
+		x = walk.Greplite('_')
 		assert_false(x.filename_matches_regexes_in_logfind("blgy.p"))
 
 	def test_is_close_but_does_not_match_regex_in_logfind(self):
-		x = walk.Recurse('_')
+		x = walk.Greplite('_', os.path.join(os.path.expanduser('~'), '.logfind'))
 		assert_false(x.filename_matches_regexes_in_logfind("blog.lo"))
 
 	def test_logfind_file_exists_empty(self):
@@ -42,39 +42,39 @@ class TestClass():
 		f = open(path, 'w+')
 		f.close()
 		f = open(path, 'r')
-		x = walk.Recurse('_')
-		assert(x.take_file_return_list(f) == [])
+		x = walk.Greplite('_')
+		assert(x.filename_patterns_from_file(f) == [])
 		f.close()
 		os.remove(path)
 	def test_logfind_file_exists_with_regexes(self):
-		x = walk.Recurse('_')
+		x = walk.Greplite('_')
 		self.f = open(self.path, 'r')
-		assert_false(x.take_file_return_list(self.f) == [])
+		assert_false(x.filename_patterns_from_file(self.f) == [])
 		self.f.close()
 	
 	def test_includes_string(self):
 		
-		x = walk.Recurse('_')
+		x = walk.Greplite('_')
 		textfile = open(self.text_file_path, 'r')
 		assert(x.includes_string(textfile, 'Pitchfork'))
 	def test_find_matched_files_false(self):
 		#FIX THIS SO THAT EXISTING FILES DON"T BUST
-		x = walk.Recurse(['Pitchfork', 'vegan'])
+		x = walk.Greplite(['Pitchfork', 'vegan'])
 		file_name_array = [self.path, self.text_file_path, 'path/that/doesnt/exist']
 		assert_false(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 
 	def test_find_matched_files_true(self):
-		x = walk.Recurse(['Pitchfork', 'pug']) 
+		x = walk.Greplite(['Pitchfork', 'pug']) 
 		file_name_array = [self.text_file_path, self.path]
 		assert([str(self.text_file_path)] == x.find_matched_files_OR_SEARCH(file_name_array))
 
 
 	def test_OR_search(self):
-		x = walk.Recurse(['vegan','Pitchfork'] ) 
+		x = walk.Greplite(['vegan','Pitchfork'] ) 
 		file_name_array = [self.text_file_path, self.path]
 		assert(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 
 	def test_AND_search(self):
-		x = walk.Recurse(['vegan','Pitchfork'] )
+		x = walk.Greplite(['vegan','Pitchfork'] )
 		file_name_array = [self.text_file_path, self.path]
 		assert([str(self.text_file_path)] == x.find_matched_files_AND_SEARCH(file_name_array))
