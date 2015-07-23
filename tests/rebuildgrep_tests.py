@@ -74,3 +74,7 @@ class TestClass():
 		file_name_array = [self.text_file_path, self.path]
 		assert(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 
+	def test_AND_search(self):
+		x = walk.Recurse(['vegan','Pitchfork'] )
+		file_name_array = [self.text_file_path, self.path]
+		assert([str(self.text_file_path)] == x.find_matched_files_AND_SEARCH(file_name_array))

@@ -50,3 +50,15 @@ class Recurse(object):
 					x.close()
 
 		return list(matched_files)
+	
+	def find_matched_files_AND_SEARCH(self, matching_file_names):
+		matched_files = []
+		for fle in matching_file_names:
+			boolist = [] 
+			for search_string in self.searchstring: 
+				x = self.open_existing_file_or_die(fle)
+				boolist.append(self.includes_string(x, search_string))
+				x.close()
+			if all(boolist):
+				matched_files.append(fle)
+		return matched_files
