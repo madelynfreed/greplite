@@ -1,21 +1,23 @@
 import os
 import sys
 import re
-class Recurse(object):
-	def __init__(self, searchstring):
+class Greplite(object):
+	def __init__(self, searchstring, configfile):
 		self.searchstring = searchstring
-		self.logfindfile = os.path.join(os.path.expanduser('~'), '.logfind')
-
-	def take_file_return_list(self, open_file):
-		list_of_regexes = open_file.readlines()
-		list_of_regexes = [string.strip() for string in list_of_regexes]
+		#self.logfindfile = os.path.join(os.path.expanduser('~'), '.logfind')
+		self.configfile = configfile
+#rename to be more of a noun?
+	def filename_patterns_from_file(self):
+		open_file = self.open_existing_file_or_die(self.configfile)
+		filename_patterns = open_file.readlines()
+		filename_patterns = [string.strip() for string in filename_patterns]
 		#figure out how to merge these two
-		list_of_regexes = filter(None, list_of_regexes) 	
+		filename_patterns = filter(None, filename_patterns) 	
 		
-		return list_of_regexes
+		return filename_patterns
 
 	def filename_matches_regexes_in_logfind(self, filename):
-		file_types = self.take_file_return_list(self.open_existing_file_or_die(self.logfindfile))
+		file_types = self.filename_patterns_from_file()
 		compiled_regexes = [re.compile(type) for type in file_types]	
 		bools_of_search = [compiled_regex.search(filename) for compiled_regex in compiled_regexes]
 		return any(bools_of_search)
@@ -23,6 +25,7 @@ class Recurse(object):
 	def includes_string(self, open_file, searchstring):
 		return searchstring in open_file.read()
 
+#not tested by unit tests!
 	def find_matching_filenames(self):
 		f = []
 		for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
@@ -33,39 +36,31 @@ class Recurse(object):
 		return f
 	
 	def open_existing_file_or_die(self, pathname):
-		
 		try:
 			return open(pathname, 'r')
 		except IOError:
 			return None
 
-	def find_matched_files(self, matching_file_names):
+	def find_matched_files_OR_SEARCH(self, matching_file_names):
 		matched_files = set()
-		for strs in self.searchstring:
-			for files in matching_file_names:
-				x = self.open_existing_file_or_die(files)
+		for stng in self.searchstring:
+			for match_file in matching_file_names:
+				x = self.open_existing_file_or_die(match_file)
 				if x:
-					if self.includes_string(x, strs):
+					if self.includes_string(x, stng):
 						matched_files.add(x.name)
 					x.close()
 
-		#list_of_open_files = map(self.open_existing_file_or_die, matching_file_names)
-		#
-		#list_of_open_files  = filter(None, list_of_open_files) 	
-		#all_the_tuples = [[pn, sst] for pn in list_of_open_files for sst in self.searchstring]
-		#print all_the_tuples
-		#print [tuple for tuple in all_the_tuples]
-		#matched_tuple = [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
-		#print all_the_tuples[0][0], all_the_tuples[0][1]
-		#print all_the_tuples[0][0].tell()
-		#print "kkddkkddkk"
-		#print self.includes_string(all_the_tuples[0][0], all_the_tuples[0][1])
-		#print "XXOXXOO"
-		#print [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
-		#print matched_tuple
-		##matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
-		#matched_files = [tuple[0] for tuple in matched_tuple]
-		#for open_file in matched_files:
-			#open_file.close()
-		#matched_files = [mf.name for mf in matched_files]
 		return list(matched_files)
+	
+	def find_matched_files_AND_SEARCH(self, matching_file_names):
+		matched_files = []
+		for fle in matching_file_names:
+			boolist = [] 
+			for search_string in self.searchstring: 
+				x = self.open_existing_file_or_die(fle)
+				boolist.append(self.includes_string(x, search_string))
+				x.close()
+			if all(boolist):
+				matched_files.append(fle)
+		return matched_files

@@ -1,13 +1,14 @@
 #!python
 import sys
+import os
 from rebuildgrep.walk import Greplite
 
 from sys import argv
 print argv
 searchterms = argv[1:]
+configfile = os.path.join(os.path.expanduser('~'), '.logfind')
 
-
-test = Greplite(searchterms)
+test = Greplite(searchterms, configfile)
 f = test.find_matching_filenames()
 matched = test.find_matched_files_OR_SEARCH(f)
 print matched

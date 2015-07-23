@@ -23,17 +23,20 @@ class TestClass():
 	def teardown(self):
 		os.remove(self.path)
 		os.remove(self.text_file_path)
+	
+	def build_greplite_object(self, searchstring, configfile):
+		return walk.Greplite(searchstring, configfile)
 
 	def test_filename_matches_regexes_in_logfind(self):
-		x = walk.Greplite('_')
+		x = self.build_greplite_object('_', self.path)
 		assert(x.filename_matches_regexes_in_logfind("gorp.log"))
 		
 	def test_does_not_match_regex_in_logfind(self):
-		x = walk.Greplite('_')
+		x = self.build_greplite_object('_', self.path)
 		assert_false(x.filename_matches_regexes_in_logfind("blgy.p"))
 
 	def test_is_close_but_does_not_match_regex_in_logfind(self):
-		x = walk.Greplite('_', os.path.join(os.path.expanduser('~'), '.logfind'))
+		x = self.build_greplite_object('_', self.path)
 		assert_false(x.filename_matches_regexes_in_logfind("blog.lo"))
 
 	def test_logfind_file_exists_empty(self):
@@ -42,39 +45,39 @@ class TestClass():
 		f = open(path, 'w+')
 		f.close()
 		f = open(path, 'r')
-		x = walk.Greplite('_')
-		assert(x.filename_patterns_from_file(f) == [])
+		x = self.build_greplite_object('_', path)
+		assert(x.filename_patterns_from_file() == [])
 		f.close()
 		os.remove(path)
 	def test_logfind_file_exists_with_regexes(self):
-		x = walk.Greplite('_')
+		
+		x = self.build_greplite_object('_', self.path)
 		self.f = open(self.path, 'r')
-		assert_false(x.filename_patterns_from_file(self.f) == [])
+		assert_false(x.filename_patterns_from_file() == [])
 		self.f.close()
 	
 	def test_includes_string(self):
 		
-		x = walk.Greplite('_')
+		x = self.build_greplite_object('_', self.text_file_path)
 		textfile = open(self.text_file_path, 'r')
 		assert(x.includes_string(textfile, 'Pitchfork'))
 	def test_find_matched_files_false(self):
-		#FIX THIS SO THAT EXISTING FILES DON"T BUST
-		x = walk.Greplite(['Pitchfork', 'vegan'])
+		x = self.build_greplite_object(['Pitchfork', 'vegan'], self.path)
 		file_name_array = [self.path, self.text_file_path, 'path/that/doesnt/exist']
 		assert_false(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 
 	def test_find_matched_files_true(self):
-		x = walk.Greplite(['Pitchfork', 'pug']) 
+		x = self.build_greplite_object(['Pitchfork', 'pug'], self.path)
 		file_name_array = [self.text_file_path, self.path]
 		assert([str(self.text_file_path)] == x.find_matched_files_OR_SEARCH(file_name_array))
 
 
 	def test_OR_search(self):
-		x = walk.Greplite(['vegan','Pitchfork'] ) 
+		x = self.build_greplite_object(['Pitchfork', 'vegan'], self.path)
 		file_name_array = [self.text_file_path, self.path]
 		assert(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 
 	def test_AND_search(self):
-		x = walk.Greplite(['vegan','Pitchfork'] )
+		x = self.build_greplite_object(['Pitchfork', 'vegan'], self.path)
 		file_name_array = [self.text_file_path, self.path]
 		assert([str(self.text_file_path)] == x.find_matched_files_AND_SEARCH(file_name_array))
