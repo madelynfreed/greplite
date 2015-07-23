@@ -16,23 +16,18 @@ class Recurse(object):
 
 	def filename_matches_regexes_in_logfind(self, filename):
 		file_types = self.take_file_return_list(self.open_existing_file_or_die(self.logfindfile))
-		#compile each of the elements in file_types
-		#if each.search(filename) , return true
 		compiled_regexes = [re.compile(type) for type in file_types]	
 		bools_of_search = [compiled_regex.search(filename) for compiled_regex in compiled_regexes]
 		return any(bools_of_search)
 
 	def includes_string(self, open_file, searchstring):
-		if searchstring in open_file.read():
-			return True
-		else:
-			return False
+		return searchstring in open_file.read()
 
 	def find_matching_filenames(self):
 		f = []
-
 		for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
-			full_path_names = [os.path.join(dirpath,name) for name in filenames if self.filename_matches_regexes_in_logfind(name)]
+			full_path_names = [os.path.join(dirpath,name) for name in filenames 
+						if self.filename_matches_regexes_in_logfind(name)]
 			f.extend(full_path_names)
 
 		return f
