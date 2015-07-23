@@ -40,11 +40,11 @@ class Recurse(object):
 
 	def find_matched_files(self, matching_file_names):
 		matched_files = set()
-		for strs in self.searchstring:
-			for files in matching_file_names:
-				x = self.open_existing_file_or_die(files)
+		for stng in self.searchstring:
+			for match_file in matching_file_names:
+				x = self.open_existing_file_or_die(match_file)
 				if x:
-					if self.includes_string(x, strs):
+					if self.includes_string(x, stng):
 						matched_files.add(x.name)
 					x.close()
 
