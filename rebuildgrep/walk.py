@@ -50,7 +50,6 @@ class Recurse(object):
 		list_of_open_files  = filter(None, list_of_open_files) 	
 	#change this so that it can handle more than one search term	
 		all_the_tuples = [[pn, sst] for pn in list_of_open_files for sst in self.searchstring]
-		print all_the_tuples
 		matched_tuple = [tuple for tuple in all_the_tuples if self.includes_string(tuple[0], tuple[1])]
 
 		#matched_files = [pathname for pathname in list_of_open_files if self.includes_string(pathname, self.searchstring[0])]
