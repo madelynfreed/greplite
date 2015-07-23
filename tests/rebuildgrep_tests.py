@@ -61,16 +61,16 @@ class TestClass():
 		#FIX THIS SO THAT EXISTING FILES DON"T BUST
 		x = walk.Recurse(['Pitchfork', 'vegan'])
 		file_name_array = [self.path, self.text_file_path, 'path/that/doesnt/exist']
-		assert_false(file_name_array == x.find_matched_files(file_name_array))
+		assert_false(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 
 	def test_find_matched_files_true(self):
 		x = walk.Recurse(['Pitchfork', 'pug']) 
 		file_name_array = [self.text_file_path, self.path]
-		assert([str(self.text_file_path)] == x.find_matched_files(file_name_array))
+		assert([str(self.text_file_path)] == x.find_matched_files_OR_SEARCH(file_name_array))
 
 
 	def test_OR_search(self):
 		x = walk.Recurse(['vegan','Pitchfork'] ) 
 		file_name_array = [self.text_file_path, self.path]
-		assert(file_name_array == x.find_matched_files(file_name_array))
+		assert(file_name_array == x.find_matched_files_OR_SEARCH(file_name_array))
 

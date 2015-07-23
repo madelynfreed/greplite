@@ -9,5 +9,5 @@ searchterms = argv[1:]
 
 test = Recurse(searchterms)
 f = test.find_matching_filenames()
-matched = test.find_matched_files(f)
+matched = test.find_matched_files_OR_SEARCH(f)
 print matched

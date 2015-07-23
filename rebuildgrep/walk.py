@@ -23,6 +23,7 @@ class Recurse(object):
 	def includes_string(self, open_file, searchstring):
 		return searchstring in open_file.read()
 
+#not tested by unit tests!
 	def find_matching_filenames(self):
 		f = []
 		for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
@@ -38,7 +39,7 @@ class Recurse(object):
 		except IOError:
 			return None
 
-	def find_matched_files(self, matching_file_names):
+	def find_matched_files_OR_SEARCH(self, matching_file_names):
 		matched_files = set()
 		for stng in self.searchstring:
 			for match_file in matching_file_names:
