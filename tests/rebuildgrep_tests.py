@@ -2,17 +2,11 @@ from nose.tools import *
 from rebuildgrep import walk
 import os
 import subprocess
+import unittest
 
 def build_greplite_object(searchstring, configfile):
 	return walk.Greplite(searchstring, configfile)
 
-#class TestBinExecutable():
-	#def test_or_search(self):
-		#current_path = subprocess.call('pwd')
-		#print current_path 
-		#print '/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep'
-
-		#assert(current_path == '/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep')
 class TestClass():
 
 	def setup(self):
@@ -89,3 +83,8 @@ class TestClass():
 		x = build_greplite_object(['Pitchfork', 'vegan'], self.path)
 		file_name_array = [self.text_file_path, self.path]
 		assert([str(self.text_file_path)] == x.find_matched_files_AND_SEARCH(file_name_array))
+
+	def test_or_search(self):
+		print subprocess.check_output('pwd')
+		output = subprocess.check_output(['bin/logfind', 'Skeleton'])
+		assert('/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep/texter.txt' in output)
