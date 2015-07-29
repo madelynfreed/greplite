@@ -1,6 +1,7 @@
 setup.py
 bin/logfind
 rebuildgrep/__init__.py
+rebuildgrep/mygrepargs.py
 rebuildgrep/walk.py
 rebuildgrep.egg-info/PKG-INFO
 rebuildgrep.egg-info/SOURCES.txt

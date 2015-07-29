@@ -1,4 +1,7 @@
 Here's what I have to do OK?
+*genericize test for bin so that it always finds that file
+* make strings caps insensitive
+* make the .logfind file have somethings default
 *simplify the bin file so you just call one function
 *tab complete for vim
 *persistent undo

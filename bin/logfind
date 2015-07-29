@@ -2,13 +2,21 @@
 import sys
 import os
 from rebuildgrep.walk import Greplite
+import argparse
 
-from sys import argv
-print argv
-searchterms = argv[1:]
+parser = argparse.ArgumentParser(description='toggling between AND and OR searching')
+parser.add_argument('searchterms', metavar='S', nargs='+', help='strings for search')
+parser.add_argument('-o', dest='or_option', action='store_true', help='search with OR instead of the default AND')
+args = parser.parse_args()
+#from sys import argv
+#print argv
+#searchterms = argv[1:]
 configfile = os.path.join(os.path.expanduser('~'), '.logfind')
 
-test = Greplite(searchterms, configfile)
+test = Greplite(args.searchterms, configfile)
 f = test.find_matching_filenames()
-matched = test.find_matched_files_OR_SEARCH(f)
+if args.or_option:
+	matched = test.find_matched_files_OR_SEARCH(f)
+else:
+	matched = test.find_matched_files_AND_SEARCH(f)
 print matched

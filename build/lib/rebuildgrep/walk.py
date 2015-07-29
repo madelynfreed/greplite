@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+
 class Greplite(object):
 	def __init__(self, searchstring, configfile):
 		self.searchstring = searchstring

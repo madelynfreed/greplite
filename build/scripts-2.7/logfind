@@ -1,5 +1,6 @@
 #!/usr/local/opt/python/bin/python2.7
 import sys
+import os
 from rebuildgrep.walk import Greplite
 
 from sys import argv

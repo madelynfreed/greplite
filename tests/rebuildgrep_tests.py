@@ -88,3 +88,8 @@ class TestClass():
 		print subprocess.check_output('pwd')
 		output = subprocess.check_output(['bin/logfind', 'Skeleton'])
 		assert('/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep/texter.txt' in output)
+	
+	def test_bin_with_OR_argument(self):
+		output = subprocess.check_output(['bin/logfind', '-o', 'Skeleton', 'Jeebers'])
+		assert('/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep/palumbo.txt' in output)
+
