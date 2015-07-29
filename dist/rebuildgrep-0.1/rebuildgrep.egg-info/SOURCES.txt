@@ -1,0 +1,11 @@
+setup.cfg
+setup.py
+bin/logfind
+rebuildgrep/__init__.py
+rebuildgrep/mygrepargs.py
+rebuildgrep/walk.py
+rebuildgrep.egg-info/PKG-INFO
+rebuildgrep.egg-info/SOURCES.txt
+rebuildgrep.egg-info/dependency_links.txt
+rebuildgrep.egg-info/requires.txt
+rebuildgrep.egg-info/top_level.txt
