@@ -84,7 +84,7 @@ class TestClass():
 		file_name_array = [self.text_file_path, self.path]
 		assert([str(self.text_file_path)] == x.find_matched_files_AND_SEARCH(file_name_array))
 
-	def test_or_search(self):
+	def test_bin_without_option(self):
 		print subprocess.check_output('pwd')
 		output = subprocess.check_output(['bin/logfind', 'Skeleton'])
 		assert('/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep/texter.txt' in output)

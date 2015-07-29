@@ -1,4 +1,8 @@
 Here's what I have to do OK?
+*simplify the bin file so you just call one function
+*tab complete for vim
+*persistent undo
+*
 *write a test testing the bin file using a subprocess (how to excecute subprocess from python)
 
 * have a switch that searches through all files
