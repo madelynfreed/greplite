@@ -86,7 +86,7 @@ class TestClass():
 
 	def test_bin_without_option(self):
 		print subprocess.check_output('pwd')
-		output = subprocess.check_output(['bin/logfind', 'Skeleton'])
+		output = subprocess.check_output(['bin/logfind', 'Skeleton', 'Jeebers'])
 		assert('/Users/madelynfreed/Documents/misc/Python/projects/rebuildGrep/texter.txt' in output)
 	
 	def test_bin_with_OR_argument(self):

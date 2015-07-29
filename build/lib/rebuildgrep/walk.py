@@ -7,7 +7,8 @@ class Greplite(object):
 		self.searchstring = searchstring
 		#self.logfindfile = os.path.join(os.path.expanduser('~'), '.logfind')
 		self.configfile = configfile
-#rename to be more of a noun?
+		self.default_filename_patterns = ['\.txt','\.py', '\.log']
+
 	def filename_patterns_from_file(self):
 		open_file = self.open_existing_file_or_die(self.configfile)
 		filename_patterns = open_file.readlines()
@@ -18,7 +19,11 @@ class Greplite(object):
 		return filename_patterns
 
 	def filename_matches_regexes_in_logfind(self, filename):
-		file_types = self.filename_patterns_from_file()
+
+		if os.path.isfile(self.configfile):
+			file_types = self.filename_patterns_from_file()
+		else:
+			file_types = self.default_filename_patterns
 		compiled_regexes = [re.compile(type) for type in file_types]	
 		bools_of_search = [compiled_regex.search(filename) for compiled_regex in compiled_regexes]
 		return any(bools_of_search)
@@ -28,6 +33,7 @@ class Greplite(object):
 
 #not tested by unit tests!
 	def find_matching_filenames(self):
+		
 		f = []
 		for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
 			full_path_names = [os.path.join(dirpath,name) for name in filenames 

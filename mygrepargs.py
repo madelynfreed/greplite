@@ -6,3 +6,4 @@ parser.add_argument('strings', metavar='S', nargs='+', help='strings for search'
 parser.add_argument('-o', action='store_true', help='search with OR instead of the default AND')
 
 
+

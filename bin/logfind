@@ -8,9 +8,6 @@ parser = argparse.ArgumentParser(description='toggling between AND and OR search
 parser.add_argument('searchterms', metavar='S', nargs='+', help='strings for search')
 parser.add_argument('-o', dest='or_option', action='store_true', help='search with OR instead of the default AND')
 args = parser.parse_args()
-#from sys import argv
-#print argv
-#searchterms = argv[1:]
 configfile = os.path.join(os.path.expanduser('~'), '.logfind')
 
 test = Greplite(args.searchterms, configfile)

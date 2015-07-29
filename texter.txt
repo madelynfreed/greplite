@@ -1,5 +1,4 @@
-
-
+Jeebers
 The first project that we’ll try is called logfind. It’s nothing more than a simple version of grep so you can learn a few simple basic things in Python:a
 
     Opening files based on regular expressions in a file.
